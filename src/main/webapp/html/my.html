@@ -7,5 +7,45 @@
 <body>
 <h1>RPG admin panel</h1>
 
+<table id="table" border="1">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Race</th>
+        <th>Profession</th>
+        <th>Level</th>
+        <th>Birthday</th>
+        <th>Banned</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+</table>
+<div>
+    <script>
+        $.ajax({
+            type: "GET",
+            url: "/rest/players/count",
+            success: function () {
+
+            }
+
+        });
+    </script>
+</div>
+
+<script>
+    $.ajax({
+        type: "GET",
+        url: "/rest/players",
+        success: function (response) {
+            console.log(response) // для понимания как данные выглядят через консоль.
+            for (var i = 0; i < response.length; i++) {
+                var player = response[i];
+                $("#table").append($("<tr> <td>" + player.id + "</td> <td>" + player.name + "</td> <td>" + player.title + "</td> <td>" + player.race + "</td> <td>" + player.profession + "</td> <td>" + player.level + "</td> <td>" + new Date(player.birthday).toLocaleDateString() + "</td> <td>" + player.banned + "</td> </tr>"));
+            }
+        }
+    });
+</script>
 </body>
 </html>
